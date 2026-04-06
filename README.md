@@ -26,5 +26,15 @@ Gemma 4 running locally via Ollama.
 - Accident data: 2019-2021 (Germany)
 - Weather data: hourly + daily records
 
+## Data Sources
+- Accident data: download from 
+  https://unfallatlas.statistikportal.de/
+- Weather data: fetched using weather_data.py
+  from Open-Meteo API
+
+## Data Documentation
+See [Data Description](docs/DSB_Unfallatlas_EN.pdf) 
+for full explanation of all columns.
+
 ## Author
 Lamiaa Bahgat
