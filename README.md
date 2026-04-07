@@ -33,10 +33,22 @@ We created a custom lookup table (asg.csv) to map
 these codes to real state, district and city names.
 
 ## Data Sources
-- Accident data: download from 
-  https://unfallatlas.statistikportal.de/
-- Weather data: fetched using weather_data.py
-  from Open-Meteo API
+## 📥 How to Get the Data
+
+### Accident Data
+Download directly from the official German statistics portal:
+👉 https://unfallatlas.statistikportal.de/
+
+Download years: 2021, 2022, 2023
+Place files in: `data/` folder
+
+### Weather Data
+Run the provided script to fetch automatically:
+```bash
+python weather_data.py
+```
+Weather data is fetched from Open-Meteo API for each 
+accident location and date.
 
 ## ⚠️ Data Limitations & Solutions
 
