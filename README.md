@@ -26,6 +26,12 @@ Gemma 4 running locally via Ollama.
 - Accident data: 2019-2021 (Germany)
 - Weather data: hourly + daily records
 
+## 🗺️ Location Code System
+German accident data uses official 8-digit municipality 
+codes (Amtlicher Gemeindeschlüssel / AGS).
+We created a custom lookup table (asg.csv) to map 
+these codes to real state, district and city names.
+
 ## Data Sources
 - Accident data: download from 
   https://unfallatlas.statistikportal.de/
