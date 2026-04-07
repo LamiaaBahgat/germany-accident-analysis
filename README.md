@@ -38,6 +38,19 @@ these codes to real state, district and city names.
 - Weather data: fetched using weather_data.py
   from Open-Meteo API
 
+## ⚠️ Data Limitations & Solutions
+
+### Missing Exact Dates
+The original German accident dataset contains only **year**, 
+**month**, and **weekday** — no exact day.
+
+**Our solution:** We estimated dates by finding the first 
+occurrence of the given weekday in that month, then combined 
+with the accident hour to create a full timestamp for 
+weather data merging.
+
+> This may introduce a small margin of error in weather matching.
+
 ## Data Documentation
 See [Data Description](docs/DSB_Unfallatlas_EN.pdf) 
 for full explanation of all columns.
