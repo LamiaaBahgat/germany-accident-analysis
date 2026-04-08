@@ -1,67 +1,77 @@
 import pandas as pd
 import os
-import glob
 
-# --- Configuration ---
-# This should be the same directory where your individual CSV files are saved
-INPUT_DIR = 'weather_data_output_2023'
+# ============================================
+# Combine Weather Data - Daily Only
+# ============================================
+# DESIGN DECISION / DESIGNENTSCHEIDUNG
+#
+# Daily data: combined all years into one file
+# → Small size (~136MB), used for main analysis
+#
+# Hourly data: kept separate per year
+# → Each file ~900MB, loaded individually
+# → Used for animated weather map per year
+# → Combining all would exceed 2.6GB RAM limit
+#
+# Tägliche Daten: alle Jahre in einer Datei
+# → Kleine Größe (~136MB), für Hauptanalyse
+#
+# Stündliche Daten: getrennt pro Jahr
+# → Jede Datei ~900MB, einzeln geladen
+# → Für animierte Wetterkarte pro Jahr
+# → Zusammenführung würde 2.6GB RAM überschreiten
+# ============================================
 
-# Define the names for your combined output files
-COMBINED_HOURLY_OUTPUT_FILE = 'combined_all_hourly_weather_data_2023.csv'
-COMBINED_DAILY_OUTPUT_FILE = 'combined_all_daily_weather_data_2023.csv'
+INPUT_DIR = '/Users/lamiaabahgat/Documents/Portfolio/data_4_years/pycharm/venv/weather_data_output'
+OUTPUT_DIR = '/Users/lamiaabahgat/Documents/germany-accident-analysis'
 
-# --- Main execution ---
-if __name__ == "__main__":
-    # --- Combine Hourly Data ---
-    print(f"Combining all hourly data from '{INPUT_DIR}'...")
-    all_hourly_files = glob.glob(os.path.join(INPUT_DIR, 'hourly_*.csv'))
+YEARS = [2021, 2022, 2023]
 
-    if not all_hourly_files:
-        print("No hourly CSV files found in the input directory. Skipping hourly combination.")
+all_daily = []
+
+print("📅 Loading daily weather data for all years...")
+print("📅 Tägliche Wetterdaten für alle Jahre werden geladen...")
+
+for year in YEARS:
+    daily_path = os.path.join(INPUT_DIR, f'combined_{year}_daily_weather_data.csv')
+
+    if os.path.exists(daily_path):
+        df = pd.read_csv(daily_path)
+        all_daily.append(df)
+        print(f"✅ Daily {year}: {len(df)} rows loaded")
     else:
-        # Create an empty list to store individual hourly dataframes
-        hourly_dfs = []
-        for f_path in all_hourly_files:
-            try:
-                df = pd.read_csv(f_path)
-                hourly_dfs.append(df)
-            except Exception as e:
-                print(f"Error reading hourly file {f_path}: {e}")
+        print(f"⚠️  Daily {year} not found at: {daily_path}")
 
-        if hourly_dfs:
-            combined_hourly_df = pd.concat(hourly_dfs, ignore_index=True)
-            output_path_hourly = os.path.join(INPUT_DIR, COMBINED_HOURLY_OUTPUT_FILE)
-            combined_hourly_df.to_csv(output_path_hourly, index=False)
-            print(f"✅ Successfully combined {len(all_hourly_files)} hourly files into {output_path_hourly}")
-            print(
-                f"Combined hourly DataFrame has {len(combined_hourly_df)} rows and {len(combined_hourly_df.columns)} columns.")
-        else:
-            print("No hourly dataframes were successfully loaded to combine.")
+# ============================================
+# Save combined daily file
+# ============================================
+if all_daily:
+    print("\n💾 Combining and saving...")
+    combined_daily = pd.concat(all_daily, ignore_index=True)
 
-    # --- Combine Daily Data ---
-    print(f"\nCombining all daily data from '{INPUT_DIR}'...")
-    all_daily_files = glob.glob(os.path.join(INPUT_DIR, 'daily_*.csv'))
+    output_path = os.path.join(OUTPUT_DIR, 'combined_daily_all_years.csv')
+    combined_daily.to_csv(output_path, index=False)
 
-    if not all_daily_files:
-        print("No daily CSV files found in the input directory. Skipping daily combination.")
+    print(f"\n✅ Saved: combined_daily_all_years.csv")
+    print(f"   Total rows: {len(combined_daily)}")
+    print(f"   Total columns: {len(combined_daily.columns)}")
+    print(f"   Columns: {list(combined_daily.columns)}")
+    print(f"\n   Years included: {YEARS}")
+else:
+    print("\n❌ No daily data found! Check your INPUT_DIR path.")
+
+# ============================================
+# Hourly files info — kept separate per year
+# ============================================
+print("\n📋 Hourly files available (kept separate):")
+print("📋 Stündliche Dateien verfügbar (getrennt):")
+for year in YEARS:
+    hourly_path = os.path.join(INPUT_DIR, f'combined_{year}_hourly_weather_data.csv')
+    if os.path.exists(hourly_path):
+        size_mb = os.path.getsize(hourly_path) / (1024 * 1024)
+        print(f"   ✅ {year}: combined_{year}_hourly_weather_data.csv ({size_mb:.1f} MB)")
     else:
-        # Create an empty list to store individual daily dataframes
-        daily_dfs = []
-        for f_path in all_daily_files:
-            try:
-                df = pd.read_csv(f_path)
-                daily_dfs.append(df)
-            except Exception as e:
-                print(f"Error reading daily file {f_path}: {e}")
+        print(f"   ⚠️  {year}: not found")
 
-        if daily_dfs:
-            combined_daily_df = pd.concat(daily_dfs, ignore_index=True)
-            output_path_daily = os.path.join(INPUT_DIR, COMBINED_DAILY_OUTPUT_FILE)
-            combined_daily_df.to_csv(output_path_daily, index=False)
-            print(f"✅ Successfully combined {len(all_daily_files)} daily files into {output_path_daily}")
-            print(
-                f"Combined daily DataFrame has {len(combined_daily_df)} rows and {len(combined_daily_df.columns)} columns.")
-        else:
-            print("No daily dataframes were successfully loaded to combine.")
-
-    print("\n--- Combination Complete ---")
+print("\n--- ✅ Done! / Fertig! ---")
