@@ -37,11 +37,15 @@ Download from the official German statistics portal:
 Download years: 2021, 2022, 2023
 Place files in: `data/` folder
 
-### Weather Data
-Run the provided script to fetch automatically:
-```bash
-python weather_data.py
-```
+## 📊 Weather Data
+Hourly weather files (~900MB each) are too large for GitHub.
+Place them in a local `weather_data/` folder:
+- combined_2021_hourly_weather_data.csv
+- combined_2022_hourly_weather_data.csv  
+- combined_2023_hourly_weather_data.csv
+
+Download using: `python weather_data.py`
+
 Weather data is fetched from Open-Meteo API for each 
 accident location and date.
 
