@@ -173,6 +173,49 @@ Diese Grundlage machte alles andere möglich — die Karten, die Muster und die 
     "en": "Friday dominates in total accidents. But remember — Sunday has the highest FATAL rate. Hover over any bar to see exact numbers.",
     "de": "Freitag dominiert bei den Gesamtunfällen. Aber denke daran — Sonntag hat die höchste TODESRATE. Fahre über einen Balken für genaue Zahlen."
 },
+    # ------------------------------------------------------------Tab 4 -----------------------------------------------------------
+"tab4_title": {
+    "en": "## 🗺️ Weather & Accidents Map",
+    "de": "## 🗺️ Wetter & Unfallkarte"
+},
+"tab4_subtitle": {
+    "en": "### Every dot is a real accident — hover to see exact weather conditions at that moment",
+    "de": "### Jeder Punkt ist ein echter Unfall — fahre darüber, um die genauen Wetterbedingungen zu sehen"
+},
+"tab4_desc": {
+    "en": """
+- 🔴 **Red** = Fatal accident (killed)
+- 🟠 **Orange** = Seriously injured  
+- 🟡 **Yellow** = Slightly injured
+- 📍 Sample of 50,000 accidents shown for performance
+- 🌤️ Hover over any point to see: weather, temperature, rain, wind
+""",
+    "de": """
+- 🔴 **Rot** = Tödlicher Unfall
+- 🟠 **Orange** = Schwer verletzt
+- 🟡 **Gelb** = Leicht verletzt
+- 📍 50.000 Unfälle als Stichprobe für Performance
+- 🌤️ Fahre über einen Punkt: Wetter, Temperatur, Regen, Wind
+"""
+},
+"tab4_insight": {
+    "en": "### 💡 What to look for",
+    "de": "### 💡 Worauf du achten solltest"
+},
+"tab4_insight_body": {
+    "en": """
+- **Zoom into NRW** (west) — highest accident density
+- **Zoom into East Germany** — fewer accidents but more red dots (fatal)
+- **Hover over red dots** — notice the weather conditions when people died
+- **Compare urban vs rural** — different accident patterns
+""",
+    "de": """
+- **Zoom in NRW** (Westen) — höchste Unfalldichte
+- **Zoom in Ostdeutschland** — weniger Unfälle aber mehr rote Punkte
+- **Fahre über rote Punkte** — beachte Wetterbedingungen bei tödlichen Unfällen
+- **Vergleiche Stadt vs Land** — unterschiedliche Unfallmuster
+"""
+},
 
     # ------------------------------------------------------------------------------------------------------------------------------
     "tab_1" : {
@@ -485,13 +528,8 @@ with tab2:
     st.markdown("---")
     st.markdown(translations["tab2_final"][lang_code])
 
-# ------------------------------------------------------Tab 3 ---------------------------------------------------
-with tab3:
-    st.markdown(translations["tab3_title"][lang_code])
-    st.markdown(translations["tab3_subtitle"][lang_code])
-    st.markdown("---")
-
-    # Load merged data
+# ---------------------------------------------------------------------------------------------------------------
+# Load merged data used in Tab 3 and Tab 4
     @st.cache_data
     def load_merged():
         return pd.read_csv(
@@ -500,6 +538,13 @@ with tab3:
         )
 
     df_merged = load_merged()
+    df_merged['category'] = df_merged['category'].str.strip()
+# ------------------------------------------------------Tab 3 ---------------------------------------------------
+with tab3:
+    st.markdown(translations["tab3_title"][lang_code])
+    st.markdown(translations["tab3_subtitle"][lang_code])
+    st.markdown("---")
+
 
     # ============================================
     # Chart 1 — Animated 24-hour cycle
@@ -517,7 +562,7 @@ with tab3:
         animation_frame='hour',
         color_discrete_map={
             'killed': '#da1e28',
-            'seriously injury ': '#ff832b',
+            'seriously injury': '#ff832b',
             'slightly injury': '#f1c21b'
         },
         title='Accidents by State: 24-Hour Cycle | Unfälle nach Bundesland im 24-Stunden-Verlauf',
@@ -634,6 +679,103 @@ with tab3:
         plot_bgcolor='rgba(0,0,0,0)'
     )
     st.plotly_chart(fig3, use_container_width=True)
+
+    # ------------------------------------------------Tab 4----------------------------------------------------------------
+    with tab4:
+        st.markdown(translations["tab4_title"][lang_code])
+        st.markdown(translations["tab4_subtitle"][lang_code])
+        st.markdown(translations["tab4_desc"][lang_code])
+        st.markdown("---")
+
+
+        # ============================================
+        # Generate map with weather hover
+        # ============================================
+        @st.cache_data
+        def generate_map():
+            import plotly.express as px
+
+            # Sample for performance
+            df_map = df_merged.sample(n=50000, random_state=42).copy()
+
+            # Round weather values
+            df_map['temperature_2m'] = df_map['temperature_2m'].round(1)
+            df_map['wind_speed_10m'] = df_map['wind_speed_10m'].round(1)
+
+            # Weather code descriptions
+            weather_code_map = {
+                0: 'Clear sky', 1: 'Mainly clear', 2: 'Partly cloudy',
+                3: 'Overcast', 45: 'Fog', 48: 'Icy fog',
+                51: 'Light drizzle', 53: 'Moderate drizzle', 55: 'Heavy drizzle',
+                61: 'Slight rain', 63: 'Moderate rain', 65: 'Heavy rain',
+                71: 'Slight snow', 73: 'Moderate snow', 75: 'Heavy snow',
+                80: 'Slight showers', 81: 'Moderate showers', 82: 'Heavy showers',
+                95: 'Thunderstorm', 96: 'Thunderstorm with hail'
+            }
+            df_map['weather_description'] = df_map['weather_code_hourly'].map(
+                weather_code_map).fillna('Unknown')
+
+            fig = px.scatter_map(
+                df_map,
+                lat='lat_round',
+                lon='lon_round',
+                color='category',
+                color_discrete_map={
+                    'killed': '#da1e28',
+                    'seriously injury': '#FF6B6B',
+                    'slightly injury': '#f1c21b'
+                },
+                hover_data={
+                    'state': True,
+                    'district': True,
+                    'join_date': True,
+                    'join_hour': True,
+                    'weather_description': True,
+                    'rain': True,
+                    'temperature_2m': True,
+                    'wind_speed_10m': True,
+                    'cloud_cover': True,
+                    'lat_round': False,
+                    'lon_round': False,
+                    'weather_code_hourly': False,
+                    'latitude': False,
+                    'longitude': False,
+                },
+                labels={
+                    'weather_description': '🌤️ Weather',
+                    'rain': '🌧️ Rain (mm)',
+                    'temperature_2m': '🌡️ Temp (°C)',
+                    'wind_speed_10m': '💨 Wind (km/h)',
+                    'cloud_cover': '☁️ Cloud Cover (%)',
+                    'join_date': '📅 Date',
+                    'join_hour': '⏰ Hour',
+                    'state': '📍 State',
+                    'district': '🏘️ District',
+                    'category': '⚠️ Severity'
+                },
+                zoom=5,
+                center=dict(lat=51.1657, lon=10.4515),
+                map_style='open-street-map',
+                opacity=0.6,
+                title='🇩🇪 Accident Locations with Weather Conditions 2021-2023'
+            )
+            fig.update_layout(
+                height=700,
+                margin=dict(t=80, l=0, r=0, b=0)
+            )
+            return fig
+
+
+        # Show loading message
+        with st.spinner('🗺️ Loading map with 50,000 accident points...'):
+            fig_map = generate_map()
+
+        st.plotly_chart(fig_map, use_container_width=True)
+
+        # Insights
+        st.markdown("---")
+        st.markdown(translations["tab4_insight"][lang_code])
+        st.markdown(translations["tab4_insight_body"][lang_code])
 
 
 
