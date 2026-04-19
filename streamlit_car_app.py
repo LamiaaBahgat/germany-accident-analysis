@@ -7,6 +7,9 @@ import time
 import requests
 import os
 
+DATA_DIR = os.path.dirname(os.path.abspath('__file__'))
+
+
 
 #----------------------------------------------------- All Dictionary ----------------------------------------------------------------
 #----------------------------------------------------------Tab 1 ----------------------------------------------------------------
@@ -136,6 +139,39 @@ Nach der Lösung aller 6 Herausforderungen haben wir einen einzigartigen Datensa
 - **Vollständige Zeitstempel** — bereit für stündliche Analyse
 
 Diese Grundlage machte alles andere möglich — die Karten, die Muster und die Gemma 4 Erkenntnisse."""
+},
+    # -------------------------------------------Tab 3 ----------------------------------------------------------------------------
+"tab3_title": {
+    "en": "## 📊 Exploratory Data Analysis",
+    "de": "## 📊 Explorative Datenanalyse"
+},
+"tab3_subtitle": {
+    "en": "### Interactive charts revealing patterns in 782,642 German accidents",
+    "de": "### Interaktive Diagramme zeigen Muster in 782.642 deutschen Unfällen"
+},
+"chart1_title": {
+    "en": "### 🕐 24-Hour Accident Cycle by State",
+    "de": "### 🕐 24-Stunden-Unfallzyklus nach Bundesland"
+},
+"chart1_desc": {
+    "en": "Press play to see how accidents change hour by hour across all German states. Notice the rush hour peaks and the dangerous late night hours.",
+    "de": "Drücke Play, um zu sehen, wie sich Unfälle stündlich in allen Bundesländern verändern. Beachte die Stoßzeiten-Spitzen und die gefährlichen späten Nachtstunden."
+},
+"chart2_title": {
+    "en": "### 🗺️ Accidents by Year / State / Category",
+    "de": "### 🗺️ Unfälle nach Jahr / Bundesland / Kategorie"
+},
+"chart2_desc": {
+    "en": "Click any block to drill down into states and accident categories. The size shows total accidents — the color shows intensity.",
+    "de": "Klicke auf einen Block, um in Bundesländer und Unfallkategorien einzutauchen. Die Größe zeigt Gesamtunfälle — die Farbe zeigt die Intensität."
+},
+"chart3_title": {
+    "en": "### 📅 Total Accidents by Day and State",
+    "de": "### 📅 Gesamtunfälle nach Tag und Bundesland"
+},
+"chart3_desc": {
+    "en": "Friday dominates in total accidents. But remember — Sunday has the highest FATAL rate. Hover over any bar to see exact numbers.",
+    "de": "Freitag dominiert bei den Gesamtunfällen. Aber denke daran — Sonntag hat die höchste TODESRATE. Fahre über einen Balken für genaue Zahlen."
 },
 
     # ------------------------------------------------------------------------------------------------------------------------------
@@ -448,6 +484,156 @@ with tab2:
     # Final result
     st.markdown("---")
     st.markdown(translations["tab2_final"][lang_code])
+
+# ------------------------------------------------------Tab 3 ---------------------------------------------------
+with tab3:
+    st.markdown(translations["tab3_title"][lang_code])
+    st.markdown(translations["tab3_subtitle"][lang_code])
+    st.markdown("---")
+
+    # Load merged data
+    @st.cache_data
+    def load_merged():
+        return pd.read_csv(
+            os.path.join(DATA_DIR, 'merged_accidents_weather.csv'),
+            low_memory=False
+        )
+
+    df_merged = load_merged()
+
+    # ============================================
+    # Chart 1 — Animated 24-hour cycle
+    # ============================================
+    st.markdown(translations["chart1_title"][lang_code])
+    st.markdown(translations["chart1_desc"][lang_code])
+
+    df_time = df_merged.groupby(['hour', 'state', 'category']).size().reset_index(name='counts')
+
+    fig1 = px.bar(
+        df_time,
+        x='state',
+        y='counts',
+        color='category',
+        animation_frame='hour',
+        color_discrete_map={
+            'killed': '#da1e28',
+            'seriously injury ': '#ff832b',
+            'slightly injury': '#f1c21b'
+        },
+        title='Accidents by State: 24-Hour Cycle | Unfälle nach Bundesland im 24-Stunden-Verlauf',
+        labels={'counts': 'counts', 'state': 'state'},
+        category_orders={'state': df_merged.groupby('state').size().sort_values(ascending=False).index.tolist()}
+    )
+    fig1.update_layout(
+        height=500,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
+    st.plotly_chart(fig1, use_container_width=True)
+
+    st.markdown("---")
+    # ============================================
+    # Chart 2 — Icicle chart
+    # ============================================
+    st.markdown(translations["chart2_title"][lang_code])
+    st.markdown(translations["chart2_desc"][lang_code])
+
+    import plotly.graph_objects as go
+
+    df_counts = df_merged.groupby(
+        ['year', 'state', 'category']
+    ).size().reset_index(name='accident_count')
+
+    levels = ['category', 'state', 'year']
+    value_column = 'accident_count'
+
+    def build_hierarchical_dataframe(df, levels, value_column):
+        df_list = []
+        for i, level in enumerate(levels):
+            df_tree = pd.DataFrame(columns=['id', 'parent', 'value', 'color'])
+            dfg = df.groupby(levels[i:])[value_column].sum().reset_index()
+            dfg['unique_id'] = dfg[levels[i:]].astype(str).agg(' | '.join, axis=1)
+            df_tree['id'] = dfg['unique_id']
+            df_tree['value'] = dfg[value_column]
+            df_tree['color'] = dfg[value_column]
+            if i < len(levels) - 1:
+                dfg['parent_id'] = dfg[levels[i+1:]].astype(str).agg(' | '.join, axis=1)
+                df_tree['parent'] = dfg['parent_id']
+            else:
+                df_tree['parent'] = 'Germany'
+            df_list.append(df_tree)
+
+        total = pd.Series(dict(
+            id='Germany',
+            parent='',
+            value=df[value_column].sum(),
+            color=df[value_column].sum()
+        ), name=0)
+        df_list.append(total)
+        return pd.concat(df_list, ignore_index=True)
+
+    df_all_trees = build_hierarchical_dataframe(df_counts, levels, value_column)
+
+    custom_colorscale = [
+        [0.0, '#f1c21b'],
+        [0.5, '#ff832b'],
+        [1.0, '#da1e28'],
+    ]
+
+    fig2 = go.Figure()
+    fig2.add_trace(go.Icicle(
+        labels=df_all_trees['id'],
+        parents=df_all_trees['parent'],
+        values=df_all_trees['value'],
+        branchvalues='total',
+        marker=dict(
+            colors=df_all_trees['color'],
+            colorscale=custom_colorscale,
+            showscale=True,
+            colorbar=dict(title='Accidents')
+        ),
+        hovertemplate='<b>%{label}</b><br>Accidents: %{value:,}<extra></extra>',
+        maxdepth=2,
+        tiling=dict(orientation='v', pad=2),
+        textfont=dict(size=10),
+        pathbar=dict(visible=True)
+    ))
+
+    fig2.update_layout(
+        title='🇩🇪 Accidents by Year / State / Category',
+        margin=dict(t=80, l=25, r=25, b=25),
+        height=700,
+        paper_bgcolor='rgba(0,0,0,0)',
+    )
+    st.plotly_chart(fig2, use_container_width=True)
+
+    st.markdown("---")
+
+    # ============================================
+    # Chart 3 — Accidents by Day and State
+    # ============================================
+    st.markdown(translations["chart3_title"][lang_code])
+    st.markdown(translations["chart3_desc"][lang_code])
+
+    df_day = df_merged.groupby(['day', 'state']).size().reset_index(name='total')
+
+    day_order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+
+    fig3 = px.bar(
+        df_day,
+        x='total',
+        y='day',
+        color='state',
+        orientation='h',
+        title='Total Accidents by Day and State | Gesamtunfälle nach Tag und Bundesland',
+        category_orders={'day': day_order},
+        height=500
+    )
+    fig3.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
+    st.plotly_chart(fig3, use_container_width=True)
 
 
 
