@@ -1139,55 +1139,28 @@ with tab3:
         # ============================================
         # Gemma 4 Chat Interface
         # ============================================
-        st.markdown("---")
-        st.markdown(translations["gemma_chat_title"][lang_code])
-        st.markdown(translations["gemma_chat_desc"][lang_code])
-        st.caption(translations["gemma_context"][lang_code])
+        
 
-        user_question = st.text_input(
-            "Question / Frage:",
-            placeholder=translations["gemma_placeholder"][lang_code]
+            st.info(
+            "🤖 Gemma 4 runs locally via Ollama. Below are pre-generated insights:"
+            if lang_code == "en" else
+            "🤖 Gemma 4 läuft lokal via Ollama. Unten sind vorberechnete Erkenntnisse:"
         )
 
-        if st.button(translations["gemma_btn"][lang_code]):
-            if user_question:
-                with st.spinner(translations["gemma_thinking"][lang_code]):
-                    # Build context prompt
-                    prompt = f"""
-    You are a road safety expert analyzing German accident data 2021-2023.
+        responses = {
+            "🌤️ Weather Analysis / Wetteranalyse": "gemma_responses/gemma_weather.txt",
+            "📍 Location Analysis / Standortanalyse": "gemma_responses/gemma_location.txt",
+            "⏰ Time Patterns / Zeitmuster": "gemma_responses/gemma_time.txt",
+            "💡 Recommendations / Empfehlungen": "gemma_responses/gemma_recommendations.txt"
+        }
 
-    Key facts from our analysis:
-    - Total accidents: 782,642
-    - Fatal accidents: 7,952
-    - Sunday has highest fatal rate: 1.27%
-    - Friday has most accidents: 146,410
-    - Most dangerous hour: Monday 15:00 (112 deaths)
-    - Most accidents: Nordrhein-Westfalen
-    - Highest fatal rate: Sachsen-Anhalt (1.61%)
-    - Average rain when fatal: 0.11mm (mostly dry!)
-    - Average temp when fatal: 12.4°C
-
-    User question: {user_question}
-
-    Please answer concisely in both English and German.
-    """
-                    try:
-                        response = requests.post(
-                            "http://localhost:11434/api/generate",
-                            json={
-                                "model": "gemma4:e4b",
-                                "prompt": prompt,
-                                "stream": False
-                            },
-                            timeout=600
-                        )
-                        answer = response.json()["response"]
-                        st.markdown("### 🤖 Gemma 4 Response:")
-                        st.markdown(answer)
-                    except Exception as e:
-                        st.error(f"❌ Could not connect to Gemma 4. Make sure Ollama is running. Error: {e}")
-            else:
-                st.warning("Please enter a question!" if lang_code == "en" else "Bitte gib eine Frage ein!")
+        for title, filepath in responses.items():
+            with st.expander(title):
+                try:
+                    with open(os.path.join(DATA_DIR, filepath), 'r') as f:
+                        st.markdown(f.read())
+                except:
+                    st.info("Response not available.")
 
     # -------------------------------------------Tab 6-----------------------------------------------------------------------
     with tab6:
