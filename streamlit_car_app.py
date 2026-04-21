@@ -216,31 +216,277 @@ Diese Grundlage machte alles andere möglich — die Karten, die Muster und die 
 - **Vergleiche Stadt vs Land** — unterschiedliche Unfallmuster
 """
 },
+    # ---------------------------------------------Tab 5 ---------------------------------------------------------------------------
+"tab5_title": {
+    "en": "## 🤖 Key Findings & Gemma 4 Analysis",
+    "de": "## 🤖 Wichtigste Erkenntnisse & Gemma 4 Analyse"
+},
+"tab5_subtitle": {
+    "en": "### AI-powered insights from 782,642 accidents — running 100% offline via Ollama",
+    "de": "### KI-gestützte Erkenntnisse aus 782.642 Unfällen — läuft 100% offline via Ollama"
+},
+"findings_title": {
+    "en": "## 🔍 Key Discoveries",
+    "de": "## 🔍 Wichtigste Entdeckungen"
+},
+"finding1_title": {
+    "en": "🗓️ Discovery 1 — Sunday is More Deadly Than Friday",
+    "de": "🗓️ Entdeckung 1 — Sonntag ist tödlicher als Freitag"
+},
+"finding1_body": {
+    "en": """Everyone assumes Friday is the most dangerous day.
+Our data proves otherwise:
+- **Friday:** 146,410 accidents — highest volume
+- **Sunday:** 81,594 accidents — but **1.27% fatal rate**
+- Sunday drivers are **55% more likely to die** than Friday drivers
+
+**Gemma 4 explanation:** Sunday driving shifts from routine commuting 
+to leisure and post-weekend impaired driving.""",
+    "de": """Alle nehmen an, Freitag sei der gefährlichste Tag.
+Unsere Daten beweisen das Gegenteil:
+- **Freitag:** 146.410 Unfälle — höchstes Volumen
+- **Sonntag:** 81.594 Unfälle — aber **1,27% Todesrate**
+- Sonntagsfahrer sterben mit **55% höherer Wahrscheinlichkeit**
+
+**Gemma 4 Erklärung:** Sonntagsfahrten wechseln von Routine-Pendeln 
+zu Freizeit und Fahren unter Alkoholeinfluss."""
+},
+"finding2_title": {
+    "en": "🗺️ Discovery 2 — Two Different Germanys",
+    "de": "🗺️ Entdeckung 2 — Zwei verschiedene Deutschlands"
+},
+"finding2_body": {
+    "en": """- **West Germany** (NRW, Bayern): Most accidents → urban density problem
+- **East Germany** (Sachsen-Anhalt **1.61%**, Brandenburg **1.24%**): Highest fatal rates → rural infrastructure problem
+
+**Gemma 4 explanation:** West = density and complexity driven risk. 
+East = rural roads, higher speeds, less controlled environment.""",
+    "de": """- **Westdeutschland** (NRW, Bayern): Meiste Unfälle → urbanes Dichteproblem
+- **Ostdeutschland** (Sachsen-Anhalt **1,61%**, Brandenburg **1,24%**): Höchste Todesraten → ländliches Infrastrukturproblem
+
+**Gemma 4 Erklärung:** West = dichte- und komplexitätsbedingt. 
+Ost = Landstraßen, höhere Geschwindigkeiten."""
+},
+"finding3_title": {
+    "en": "🌤️ Discovery 3 — Good Weather Kills More",
+    "de": "🌤️ Entdeckung 3 — Gutes Wetter tötet mehr"
+},
+"finding3_body": {
+    "en": """Most fatal accidents happen in **mild, dry conditions**:
+- Average rain when fatal: **0.11mm** (almost dry!)
+- Average temperature: **12.4°C** (comfortable)
+- Wind speed: minimal effect on severity
+
+**Gemma 4 explanation:** Drivers speed more in good weather, 
+reducing reaction time when accidents occur.""",
+    "de": """Die meisten tödlichen Unfälle passieren bei **milden, trockenen Bedingungen**:
+- Durchschnittlicher Regen bei tödlichen Unfällen: **0,11mm**
+- Durchschnittstemperatur: **12,4°C**
+- Windgeschwindigkeit: minimaler Einfluss
+
+**Gemma 4 Erklärung:** Fahrer fahren bei gutem Wetter schneller, 
+was die Reaktionszeit verringert."""
+},
+"finding4_title": {
+    "en": "⏰ Discovery 4 — Monday 15:00 — The Hidden Danger",
+    "de": "⏰ Entdeckung 4 — Montag 15:00 — Die versteckte Gefahr"
+},
+"finding4_body": {
+    "en": """The single most deadly hour is **Monday at 15:00** (112 deaths).
+
+**Gemma 4 explanation:** The 'Sunday Scaries' effect — stress and 
+anxiety from returning to work combined with rush-hour pressure 
+creates a deadly window every Monday afternoon.""",
+    "de": """Die einzeln tödlichste Stunde ist **Montag um 15:00 Uhr** (112 Tode).
+
+**Gemma 4 Erklärung:** Der 'Sonntagsangst'-Effekt — Stress durch 
+Rückkehr zur Arbeit kombiniert mit Stoßzeitdruck schafft jeden 
+Montagnachmittag ein tödliches Zeitfenster."""
+},
+"gemma_chat_title": {
+    "en": "## 🤖 Ask Gemma 4",
+    "de": "## 🤖 Frage Gemma 4"
+},
+"gemma_chat_desc": {
+    "en": "Ask Gemma 4 anything about German road safety. Running 100% locally via Ollama — no internet required.",
+    "de": "Frage Gemma 4 alles über die Verkehrssicherheit in Deutschland. Läuft 100% lokal via Ollama — kein Internet erforderlich."
+},
+"gemma_placeholder": {
+    "en": "e.g. Why is Sunday more dangerous than Friday?",
+    "de": "z.B. Warum ist Sonntag gefährlicher als Freitag?"
+},
+"gemma_btn": {
+    "en": "Ask Gemma 4 🤖",
+    "de": "Gemma 4 fragen 🤖"
+},
+"gemma_thinking": {
+    "en": "🤖 Gemma 4 is thinking... (may take 3-5 minutes on CPU)",
+    "de": "🤖 Gemma 4 denkt nach... (kann 3-5 Minuten auf CPU dauern)"
+},
+"gemma_context": {
+    "en": "Gemma 4 answers based on our analysis of 782,642 German accidents (2021-2023) with weather data.",
+    "de": "Gemma 4 antwortet basierend auf unserer Analyse von 782.642 deutschen Unfällen (2021-2023) mit Wetterdaten."
+},
+    # -----------------------------------------Tab 6-------------------------------------------------------------------------------
+"tab6_title": {
+    "en": "## 🎯 Conclusion & Next Steps",
+    "de": "## 🎯 Fazit & Nächste Schritte"
+},
+"tab6_story": {
+    "en": """## 💙 Why This Project Exists
+
+In 2010, my father was involved in a serious road accident.
+His car was completely destroyed. We almost lost him that day.
+
+That moment never left me.
+
+Road accidents are not random — they have patterns, causes,
+and most importantly, **they can be prevented.**
+
+This project is my contribution to making roads safer —
+not just in Germany, but everywhere.""",
+    "de": """## 💙 Warum dieses Projekt existiert
+
+Im Jahr 2010 war mein Vater in einen schweren Verkehrsunfall verwickelt.
+Sein Auto wurde völlig zerstört. Wir hätten ihn fast verloren.
+
+Dieser Moment hat mich nie losgelassen.
+
+Verkehrsunfälle sind nicht zufällig — sie haben Muster, Ursachen
+und vor allem **können sie verhindert werden.**
+
+Dieses Projekt ist mein Beitrag zu sichereren Straßen —
+nicht nur in Deutschland, sondern überall."""
+},
+"tab6_summary_title": {
+    "en": "## 📊 What We Discovered",
+    "de": "## 📊 Was wir entdeckt haben"
+},
+"tab6_summary": {
+    "en": """
+| Discovery | Finding | Impact |
+|-----------|---------|--------|
+| 🗓️ Most dangerous day | Sunday (1.27% fatal) not Friday | Target drunk driving interventions |
+| 🗺️ Location pattern | East Germany most deadly (rural) | Different strategies needed |
+| 🌤️ Weather paradox | Good weather = more deaths | Speed enforcement in dry conditions |
+| ⏰ Hidden danger | Monday 15:00 = 112 deaths | Fatigue awareness campaigns |
+| 🤖 AI power | Gemma 4 explains WHY | Local, private, offline analysis |
+""",
+    "de": """
+| Entdeckung | Ergebnis | Auswirkung |
+|------------|---------|------------|
+| 🗓️ Gefährlichster Tag | Sonntag (1,27%) nicht Freitag | Alkohol-Interventionen gezielt einsetzen |
+| 🗺️ Standortmuster | Ostdeutschland am tödlichsten | Verschiedene Strategien nötig |
+| 🌤️ Wetter-Paradox | Gutes Wetter = mehr Tode | Geschwindigkeitskontrolle bei trockenem Wetter |
+| ⏰ Versteckte Gefahr | Montag 15:00 = 112 Tode | Müdigkeitskampagnen |
+| 🤖 KI-Kraft | Gemma 4 erklärt WARUM | Lokale, private, offline Analyse |
+"""
+},
+"tab6_vision": {
+    "en": """## 🌍 Vision Zero & Beyond
+
+Germany's Vision Zero initiative aims for **zero road fatalities**.
+VisionZero AI directly supports this by:
+
+- Identifying **Sunday drunk driving** as priority intervention
+- Proving **East vs West Germany** need different strategies  
+- Revealing **Monday 15:00** as a predictable danger window
+- Making expert-level analysis available **offline, in any language**
+
+### 🇪🇬 My Next Goal
+As someone from Egypt — a country where road safety matters deeply —
+my next step is applying VisionZero AI to **Egyptian road data**
+to help save lives in my own country.""",
+    "de": """## 🌍 Vision Zero & Darüber hinaus
+
+Deutschlands Vision-Zero-Initiative zielt auf **null Verkehrstote**.
+VisionZero AI unterstützt dies direkt durch:
+
+- Identifizierung von **Sonntagstrunkenfahrten** als Priorität
+- Beweis, dass **Ost- und Westdeutschland** verschiedene Strategien brauchen
+- Aufdeckung von **Montag 15:00** als vorhersehbares Gefahrenfenster
+- Expertenanalyse **offline, in jeder Sprache** verfügbar machen
+
+### 🇪🇬 Mein nächstes Ziel
+Als jemand aus Ägypten — einem Land, wo Verkehrssicherheit wichtig ist —
+ist mein nächster Schritt, VisionZero AI auf **ägyptische Unfalldaten**
+anzuwenden, um Leben in meinem eigenen Land zu retten."""
+},
+"tab6_tech": {
+    "en": """## 🛠️ Technology Stack
+
+| Component | Technology | Why |
+|-----------|-----------|-----|
+| 🤖 AI Model | Gemma 4 (e4b) via Ollama | Local, private, offline |
+| 📊 Data Analysis | Python + Pandas | Industry standard |
+| ⚡ SQL Engine | DuckDB | Handles 2.6GB without crashing |
+| 🗺️ Maps | Plotly + OpenStreetMap | Interactive, no API key needed |
+| 🌐 Web App | Streamlit | Fast prototyping, bilingual |
+| 📡 Weather | Open-Meteo API | Free, accurate, historical |
+| 🔢 Data Source | Destatis (Official German Stats) | Most reliable accident data |""",
+    "de": """## 🛠️ Technologie-Stack
+
+| Komponente | Technologie | Warum |
+|------------|------------|-------|
+| 🤖 KI-Modell | Gemma 4 (e4b) via Ollama | Lokal, privat, offline |
+| 📊 Datenanalyse | Python + Pandas | Industriestandard |
+| ⚡ SQL-Engine | DuckDB | Verarbeitet 2,6 GB ohne Absturz |
+| 🗺️ Karten | Plotly + OpenStreetMap | Interaktiv, kein API-Schlüssel |
+| 🌐 Web-App | Streamlit | Schnelles Prototyping, zweisprachig |
+| 📡 Wetter | Open-Meteo API | Kostenlos, genau, historisch |
+| 🔢 Datenquelle | Destatis (Offizielle Deutsche Statistik) | Zuverlässigste Unfalldaten |"""
+},
+"tab6_thanks": {
+    "en": """---
+## 🙏 Thank You
+
+Thank you for exploring VisionZero AI.
+
+Every red dot on that map is a real person.
+Every pattern we found could save a life.
+
+*Built with ❤️ by Lamiaa Bahgat — Cairo, Egypt*
+
+🔗 **GitHub:** [VisionZero AI Repository](https://github.com/LamiaaBahgat/germany-accident-analysis)
+""",
+    "de": """---
+## 🙏 Danke
+
+Danke, dass du VisionZero AI erkundet hast.
+
+Jeder rote Punkt auf dieser Karte ist ein echter Mensch.
+Jedes Muster, das wir gefunden haben, könnte ein Leben retten.
+
+*Gebaut mit ❤️ von Lamiaa Bahgat — Kairo, Ägypten*
+
+🔗 **GitHub:** [VisionZero AI Repository](https://github.com/LamiaaBahgat/germany-accident-analysis)
+"""
+},
 
     # ------------------------------------------------------------------------------------------------------------------------------
     "tab_1" : {
-         "en" : "Project Overview",
-         "de" : "Projektübersicht"
+         "en" : "🏠 Home",
+         "de" : "🏠 Startseite"
     },
     "tab_2" : {
-         "en" : "Data Sources & Cleaning",
-         "de" : "Datenquellen & Aufbereitung"
+         "en" : "🛠️ Our Data Journey",
+         "de" : "🛠️ Unsere Datenreise"
     },
     "tab_3" : {
-         "en" : "Exploratory Data Analysis",
-         "de" : "Explorative Datenanalyse"
+         "en" : "📊 Analysis",
+         "de" : "📊 Analyse"
     },
     "tab_4" : {
-         "en" : "Weather & Accidents Map",
-         "de" : "Wetter & Unfallkarte"
+         "en" : "🗺️ Live Map",
+         "de" : "🗺️ Live Karte"
     },
     "tab_5" : {
-         "en" : "Key Questions & Findings",
-         "de" : "Zentrale Fragestellungen & Ergebnisse"
+         "en" : "🤖 AI Insights",
+         "de" : "🤖 KI Erkenntnisse"
     },
     "tab_6" : {
-         "en" : "Conclusion & Next Steps",
-         "de" : "Fazit & nächste Schritte"
+         "en" : "🎯 Conclusion",
+         "de" : "🎯 Fazit"
     },
 # ============================================
 # Tab 1 — New translations
@@ -776,6 +1022,193 @@ with tab3:
         st.markdown("---")
         st.markdown(translations["tab4_insight"][lang_code])
         st.markdown(translations["tab4_insight_body"][lang_code])
+
+    # ------------------------------------- Tab 5-------------------------------------------------------------------------------
+    with tab5:
+        st.markdown(translations["tab5_title"][lang_code])
+        st.markdown(translations["tab5_subtitle"][lang_code])
+        st.markdown("---")
+
+        # ============================================
+        # Key Findings
+        # ============================================
+        st.markdown(translations["findings_title"][lang_code])
+
+        # Finding 1 — Sunday
+        with st.expander(translations["finding1_title"][lang_code], expanded=True):
+            st.markdown(translations["finding1_body"][lang_code])
+
+            # Show day comparison chart
+            day_stats = pd.DataFrame({
+                'day': ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+                'total': [133928, 141413, 140003, 142473, 146410, 105436, 81594],
+                'fatal_pct': [0.87, 0.78, 0.78, 0.84, 0.82, 1.10, 1.27]
+            })
+
+            col1, col2 = st.columns(2)
+            with col1:
+                fig_day1 = px.bar(
+                    day_stats,
+                    x='day', y='total',
+                    title='Total Accidents by Day',
+                    color='total',
+                    color_continuous_scale=['#f1c21b', '#da1e28']
+                )
+                fig_day1.update_layout(height=300, showlegend=False)
+                st.plotly_chart(fig_day1, use_container_width=True)
+
+            with col2:
+                fig_day2 = px.bar(
+                    day_stats,
+                    x='day', y='fatal_pct',
+                    title='Fatal Rate % by Day',
+                    color='fatal_pct',
+                    color_continuous_scale=['#f1c21b', '#da1e28']
+                )
+                fig_day2.update_layout(height=300, showlegend=False)
+                st.plotly_chart(fig_day2, use_container_width=True)
+
+        # Finding 2 — Two Germanys
+        with st.expander(translations["finding2_title"][lang_code], expanded=False):
+            st.markdown(translations["finding2_body"][lang_code])
+
+            state_stats = df_merged.groupby('state').agg(
+                total=('category', 'count'),
+                fatal=('category', lambda x: (x == 'killed').sum())
+            ).reset_index()
+            state_stats['fatal_pct'] = (state_stats['fatal'] / state_stats['total'] * 100).round(2)
+
+            fig_state = px.bar(
+                state_stats.sort_values('fatal_pct', ascending=True),
+                x='fatal_pct',
+                y='state',
+                orientation='h',
+                title='Fatal Rate % by State',
+                color='fatal_pct',
+                color_continuous_scale=['#f1c21b', '#ff832b', '#da1e28']
+            )
+            fig_state.update_layout(height=500)
+            st.plotly_chart(fig_state, use_container_width=True)
+
+        # Finding 3 — Good weather
+        with st.expander(translations["finding3_title"][lang_code], expanded=False):
+            st.markdown(translations["finding3_body"][lang_code])
+
+            weather_stats = df_merged.groupby('category').agg(
+                avg_rain=('rain', 'mean'),
+                avg_temp=('temperature_2m', 'mean'),
+                avg_wind=('wind_speed_10m', 'mean')
+            ).round(2).reset_index()
+
+            fig_weather = px.bar(
+                weather_stats,
+                x='category',
+                y='avg_rain',
+                title='Average Rain by Accident Severity',
+                color='category',
+                color_discrete_map={
+                    'killed': '#da1e28',
+                    'seriously injury': '#FF6B6B',
+                    'slightly injury': '#f1c21b'
+                }
+            )
+            fig_weather.update_layout(height=300)
+            st.plotly_chart(fig_weather, use_container_width=True)
+
+        # Finding 4 — Monday 15:00
+        with st.expander(translations["finding4_title"][lang_code], expanded=False):
+            st.markdown(translations["finding4_body"][lang_code])
+
+            time_stats = df_merged.groupby(['day', 'hour'])['category'].apply(
+                lambda x: (x == 'killed').sum()
+            ).reset_index(name='fatal_count')
+
+            fig_time = px.density_heatmap(
+                time_stats,
+                x='hour',
+                y='day',
+                z='fatal_count',
+                title='Fatal Accidents by Day and Hour',
+                color_continuous_scale=['#f1c21b', '#ff832b', '#da1e28'],
+                category_orders={'day': ['monday', 'tuesday', 'wednesday',
+                                         'thursday', 'friday', 'saturday', 'sunday']}
+            )
+            fig_time.update_layout(height=400)
+            st.plotly_chart(fig_time, use_container_width=True)
+
+        # ============================================
+        # Gemma 4 Chat Interface
+        # ============================================
+        st.markdown("---")
+        st.markdown(translations["gemma_chat_title"][lang_code])
+        st.markdown(translations["gemma_chat_desc"][lang_code])
+        st.caption(translations["gemma_context"][lang_code])
+
+        user_question = st.text_input(
+            "Question / Frage:",
+            placeholder=translations["gemma_placeholder"][lang_code]
+        )
+
+        if st.button(translations["gemma_btn"][lang_code]):
+            if user_question:
+                with st.spinner(translations["gemma_thinking"][lang_code]):
+                    # Build context prompt
+                    prompt = f"""
+    You are a road safety expert analyzing German accident data 2021-2023.
+
+    Key facts from our analysis:
+    - Total accidents: 782,642
+    - Fatal accidents: 7,952
+    - Sunday has highest fatal rate: 1.27%
+    - Friday has most accidents: 146,410
+    - Most dangerous hour: Monday 15:00 (112 deaths)
+    - Most accidents: Nordrhein-Westfalen
+    - Highest fatal rate: Sachsen-Anhalt (1.61%)
+    - Average rain when fatal: 0.11mm (mostly dry!)
+    - Average temp when fatal: 12.4°C
+
+    User question: {user_question}
+
+    Please answer concisely in both English and German.
+    """
+                    try:
+                        response = requests.post(
+                            "http://localhost:11434/api/generate",
+                            json={
+                                "model": "gemma4:e4b",
+                                "prompt": prompt,
+                                "stream": False
+                            },
+                            timeout=600
+                        )
+                        answer = response.json()["response"]
+                        st.markdown("### 🤖 Gemma 4 Response:")
+                        st.markdown(answer)
+                    except Exception as e:
+                        st.error(f"❌ Could not connect to Gemma 4. Make sure Ollama is running. Error: {e}")
+            else:
+                st.warning("Please enter a question!" if lang_code == "en" else "Bitte gib eine Frage ein!")
+
+    # -------------------------------------------Tab 6-----------------------------------------------------------------------
+    with tab6:
+        # Personal story
+        st.markdown(translations["tab6_story"][lang_code])
+        st.markdown("---")
+
+        # Summary table
+        st.markdown(translations["tab6_summary_title"][lang_code])
+        st.markdown(translations["tab6_summary"][lang_code])
+        st.markdown("---")
+
+        # Vision Zero
+        st.markdown(translations["tab6_vision"][lang_code])
+        st.markdown("---")
+
+        # Tech stack
+        st.markdown(translations["tab6_tech"][lang_code])
+
+        # Thank you
+        st.markdown(translations["tab6_thanks"][lang_code])
 
 
 
