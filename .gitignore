@@ -209,6 +209,7 @@ __marimo__/
 # Data files - too large for GitHub
 *.csv
 *.txt
+!requirements.txt
 !gemma_responses/*.txt
 cleaned_car_dataset.csv
 
