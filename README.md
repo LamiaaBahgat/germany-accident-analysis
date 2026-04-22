@@ -37,6 +37,15 @@ Download from the official German statistics portal:
 Download years: 2021, 2022, 2023
 Place files in: `data/` folder
 
+## 🗄️ Merged Dataset
+The merged accident + weather dataset (323MB) is too large for GitHub.
+It is hosted on Hugging Face:
+👉 [LamiaaBahgat/visionzero-data](https://huggingface.co/datasets/LamiaaBahgat/visionzero-data)
+
+Download and place in the root folder:
+- `merged_accidents_weather.csv`
+
+
 ## 📊 Weather Data
 Hourly weather files (~900MB each) are too large for GitHub.
 Place them in a local `weather_data/` folder:
