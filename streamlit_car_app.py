@@ -939,7 +939,7 @@ with tab3:
         # ============================================
         @st.cache_data
         def generate_map():
-            import plotly.express as px
+        
 
             # Sample for performance
             df_map = df_merged.sample(n=50000, random_state=42).copy()
