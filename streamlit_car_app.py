@@ -779,7 +779,7 @@ with tab2:
     @st.cache_data
     def load_merged():
         return pd.read_csv(
-            os.path.join(DATA_DIR, 'merged_accidents_weather.csv'),
+             "https://huggingface.co/datasets/LamiaaBahgat/visionzero-data/resolve/main/merged_accidents_weather.csv",
             low_memory=False
         )
 
