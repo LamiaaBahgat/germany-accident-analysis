@@ -778,10 +778,9 @@ with tab2:
 # Load merged data used in Tab 3 and Tab 4
     @st.cache_data
     def load_merged():
-        return pd.read_csv(
-             "https://huggingface.co/datasets/LamiaaBahgat/visionzero-data/resolve/main/merged_accidents_weather.csv",
-            low_memory=False
-        )
+        return pd.read_parquet(
+    "https://huggingface.co/datasets/LamiaaBahgat/visionzero-data/resolve/main/merged_accidents_weather.parquet"
+)
 
     df_merged = load_merged()
     df_merged['category'] = df_merged['category'].str.strip()
