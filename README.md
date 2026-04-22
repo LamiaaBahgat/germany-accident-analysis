@@ -42,9 +42,9 @@ The merged accident + weather dataset (323MB) is too large for GitHub.
 It is hosted on Hugging Face:
 👉 [LamiaaBahgat/visionzero-data](https://huggingface.co/datasets/LamiaaBahgat/visionzero-data)
 
-Download and place in the root folder:
-- `merged_accidents_weather.csv`
-
+Available in two formats:
+- `merged_accidents_weather.csv` (323 MB) - standard format
+- `merged_accidents_weather.parquet` (65 MB) - compressed format, used by the Streamlit app
 
 ## 📊 Weather Data
 Hourly weather files (~900MB each) are too large for GitHub.
